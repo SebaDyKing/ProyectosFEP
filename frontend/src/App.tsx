@@ -256,7 +256,7 @@ const App: React.FC = () => {
                   <span className="text-sm font-bold text-indigo-600">{totems} u.</span>
                 </div>
                 <input
-                  type="range" min="0" max="10" step="1"
+                  type="range" min="0" max="6" step="1"
                   value={totems} onChange={(e) => setTotems(parseInt(e.target.value))}
                   className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
                 />

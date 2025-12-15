@@ -17,7 +17,7 @@ def generate_data():
     
     # Resources
     cajeras = np.random.randint(1, 6, NUM_SAMPLES) # 1 to 5 cashiers
-    totems = np.random.randint(0, 11, NUM_SAMPLES) # 0 to 10 totems (expanded range)
+    totems = np.random.randint(0, 7, NUM_SAMPLES) # 0 to 6 totems (updated range)
     
     # Channel (0=Manual, 1=Edenred/Totem)
     # We force correlation: if Totems > 0, probability of using Edenred increases
