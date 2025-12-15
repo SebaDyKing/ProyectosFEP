@@ -27,7 +27,6 @@ const App: React.FC = () => {
   const [totems, setTotems] = useState<number>(2);
   const [cajeras, setCajeras] = useState<number>(2);
   const [hour, setHour] = useState<number>(13.0);
-  const [useEdenred, setUseEdenred] = useState<boolean>(false);
   const [amount, setAmount] = useState<number>(3500);
 
   // State
@@ -44,10 +43,9 @@ const App: React.FC = () => {
   const handleSimulate = async () => {
     setSimulation(prev => ({ ...prev, loading: true, error: null }));
 
-    // Logic: If Edenred is active, we assume user picks Totem (Canal=1).
-    // If not, depends (assume manual for baseline or mix). 
-    // For specific simulation of "Impacto Edenred", let's say Edenred ON -> Canal 1.
-    const canal = useEdenred ? 1 : 0;
+    // Logic: User requested to ALWAYS simulate with Edenred active.
+    // So Canal is always 1 (Totem/Edenred).
+    const canal = 1;
 
     // Additional Totems: The slider says "Nuevos a instalar" or "Total"?
     // Let's assume Total to be consistent with the backend model which takes absolute numbers.
@@ -106,7 +104,7 @@ const App: React.FC = () => {
       handleSimulate();
     }, 300); // 300ms debounce
     return () => clearTimeout(timer);
-  }, [totems, cajeras, hour, useEdenred, amount]);
+  }, [totems, cajeras, hour, amount]);
 
   // Data for chart
   const chartData = [
@@ -277,48 +275,6 @@ const App: React.FC = () => {
                 />
               </div>
 
-              {/* Toggle: Edenred */}
-              <div className="mb-8 p-4 bg-indigo-50 rounded-xl border border-indigo-100">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Wallet className="w-5 h-5 text-indigo-600" />
-                    <div>
-                      <div className="text-sm font-semibold text-slate-800">Integración Edenred</div>
-                      <div className="text-xs text-slate-500">Habilita pago en Tótems</div>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => setUseEdenred(!useEdenred)}
-                    className={cn(
-                      "w-12 h-6 rounded-full transition-colors duration-200 ease-in-out relative",
-                      useEdenred ? "bg-indigo-600" : "bg-slate-300"
-                    )}
-                  >
-                    <div className={cn(
-                      "w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-200 absolute top-1 left-1",
-                      useEdenred ? "translate-x-6" : ""
-                    )} />
-                  </button>
-                </div>
-              </div>
-
-              {/* Action Button */}
-              <button
-                onClick={() => handleSimulate()}
-                disabled={simulation.loading}
-                className="w-full py-3 px-4 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl shadow-lg transition-all active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                {simulation.loading ? (
-                  <span className="animate-spin text-xl">⏳</span>
-                ) : (
-                  <>
-                    <span>Actualizar Simulación</span>
-                    <Activity className="w-4 h-4" />
-                  </>
-                )}
-              </button>
-
             </div>
           </div>
 
@@ -362,8 +318,8 @@ const App: React.FC = () => {
           </div>
 
         </div>
-      </main>
-    </div>
+      </main >
+    </div >
   );
 }
 
